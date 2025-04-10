@@ -1,0 +1,122 @@
+/* Base Styles */
+:root {
+    --primary-color: #25D366;
+    --primary-hover: #128C7E;
+    --secondary-color: #FFD700; 
+    --secondary-hover: #FFC000; 
+    --danger-color: #dc3545;
+    --danger-hover: #bb2d3b;
+    --light-bg: #f8f9fa;
+    --light-text: #212529;
+    --light-border: #dee2e6;
+    --light-card: #ffffff;
+    --dark-bg: #121212;
+    --dark-card: #1e1e1e;
+    --dark-border: #333333;
+    --dark-text: #e0e0e0;
+    --dark-secondary: #888888;
+  }
+  
+  body {
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  body.dark-mode {
+    background-color: var(--dark-bg);
+    color: var(--dark-text);
+  }
+  
+  /* Card Styles */
+  .card {
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+  
+  body.dark-mode .card {
+    background-color: var(--dark-card);
+    border-color: var(--dark-border);
+    color: var(--dark-text);
+  }
+  
+  /* Form Controls */
+  .form-control {
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+  }
+  
+  body.dark-mode .form-control {
+    background-color: #2d2d2d;
+    border-color: var(--dark-border);
+    color: var(--dark-text);
+  }
+  
+  body.dark-mode .form-control:focus {
+    background-color: #2d2d2d;
+    border-color: var(--primary-color);
+    color: var(--dark-text);
+    box-shadow: 0 0 0 0.25rem rgba(37, 211, 102, 0.25);
+  }
+  
+  /* Button Styles */
+  .btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+  }
+  
+  body.dark-mode .btn-outline-primary {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+  
+  body.dark-mode .btn-outline-primary:hover,
+  body.dark-mode .btn-outline-primary.active {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+  }
+  
+  body.dark-mode .btn-outline-secondary {
+    color: var(--secondary-color);
+    border-color: var(--secondary-color);
+  }
+  
+  body.dark-mode .btn-outline-secondary:hover,
+  body.dark-mode .btn-outline-secondary.active {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: white;
+  }
+  
+  /* Text Colors */
+  body.dark-mode .text-muted {
+    color: var(--dark-secondary) !important;
+  }
+
+  .dark-mode .form-control::placeholder {
+    color: #adb5bd;
+    opacity: 1;
+    }
+
+
+    .form-control::placeholder {
+        opacity: 0.8;
+    }
+  
+  /* Connection Status */
+  .connection-status {
+    margin-bottom: 1rem;
+    font-weight: bold;
+  }
+  
+  /* Task Cards */
+  .task-card {
+    margin-bottom: 1rem;
+  }
+  
+  /* Hide/Show Container */
+  .hidden {
+    display: none;
+  }
