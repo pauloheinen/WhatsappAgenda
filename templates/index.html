@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WhatsApp Agenda</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <script src="https://unpkg.com/imask"></script>
-    <link rel="stylesheet" href="../static/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhatsApp Agenda</title>
+  <link rel="stylesheet" href="../static/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css">
+  <script src="https://unpkg.com/imask"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/l10n/pt.js"></script>
+
 </head>
 <body>
   <div class="container mt-4">
@@ -15,52 +19,59 @@
     <div class="connection-status">
       Status: <span id="connectionStatus">Verificando conexão...</span>
     </div>
-    
+
     <!-- QR Code View -->
     <div id="qrCodeView">
-        <h2>Escaneie o QR Code</h2>
-        <p>Abra o WhatsApp no seu telefone e escaneie o código abaixo:</p>
-        <img id="qrCode" src="" alt="QR Code WhatsApp">
-        <p class="mt-3">Aguardando conexão com WhatsApp...</p>
+      <h2>Escaneie o QR Code</h2>
+      <p>Abra o WhatsApp no seu telefone e escaneie o código abaixo:</p>
+      <img id="qrCode" src="" alt="QR Code WhatsApp">
+      <p class="mt-3">Aguardando conexão com WhatsApp...</p>
     </div>
 
     <!-- Task Management View -->
     <div id="taskView" class="hidden">
-        <h1>WhatsApp Agenda</h1>
-        
-        <!-- Form para criar nova tarefa -->
-        <div class="card mb-4">
-          <div class="card-body">
-            <h5 class="card-title">Nova Mensagem Agendada</h5>
-            <form id="taskForm">
-              <div class="mb-3">
-                <label for="contact" class="form-label">Contato</label>
-                <input type="text" class="form-control" id="contact" placeholder="+55 (__) _ ____-____" required>
-            </div>
-              <div class="mb-3">
-                  <label for="message" class="form-label">Mensagem</label>
-                  <textarea class="form-control" id="message" required></textarea>
-              </div>
-              <div class="mb-3">
-                <label for="scheduled_time" class="form-label">Data e Hora</label>
-                <div class="d-flex flex-wrap gap-2 mb-2">
-                    <button type="button" class="btn btn-outline-primary" onclick="setScheduleTime(1, event)">1 dia</button>
-                    <button type="button" class="btn btn-outline-primary" onclick="setScheduleTime(3, event)">3 dias</button>
-                    <button type="button" class="btn btn-outline-primary" onclick="setScheduleTime(7, event)">1 semana</button>
-                    <button type="button" class="btn btn-outline-primary" onclick="setScheduleTime(30, event)">1 mês</button>
-                    <button type="button" class="btn btn-outline-primary" onclick="setScheduleTime(90, event)">3 meses</button>
-                    <button type="button" class="btn btn-outline-secondary" onclick="toggleCustomDate(event)">Personalizado</button>
-                </div>
-                <input type="datetime-local" class="form-control" id="scheduled_time" required style="display: none;">
-            </div>
-              <button type="submit" class="btn btn-primary">Agendar</button>
-            </form>
-          </div>
-        </div>
+      <h1>WhatsApp Agenda</h1>
 
-        <!-- Lista de tarefas -->
-        <h2>Mensagens Agendadas</h2>
-        <div id="taskList"></div>
+      <!-- Form para criar nova tarefa -->
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">Nova Mensagem Agendada</h5>
+          <form id="taskForm">
+            <div class="mb-3">
+              <label for="contact" class="form-label">Contato</label>
+              <input type="text" class="form-control" id="contact" placeholder="+55 (__) _ ____-____" required>
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label">Mensagem</label>
+              <textarea class="form-control" id="message" required></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="scheduled_time" class="form-label">Data e Hora</label>
+              <div class="d-flex flex-wrap gap-2 mb-2">
+                <button type="button" class="btn btn-outline-primary" onclick="setScheduleTime(1, event)">1 dia</button>
+                <button type="button" class="btn btn-outline-primary" onclick="setScheduleTime(3, event)">3 dias</button>
+                <button type="button" class="btn btn-outline-primary" onclick="setScheduleTime(7, event)">1 semana</button>
+                <button type="button" class="btn btn-outline-primary" onclick="setScheduleTime(30, event)">1 mês</button>
+                <button type="button" class="btn btn-outline-primary" onclick="setScheduleTime(90, event)">3 meses</button>
+              </div>
+
+              <div class="date-time-wrapper">
+                <div class="date-time-display" id="dateTimeDisplay">
+                  <i class="bi bi-calendar-event"></i>
+                  <span id="selectedDateTime">Selecione a data e hora</span>
+                </div>
+                <input type="hidden" id="scheduled_time" required>
+              </div>
+
+            </div>
+            <button type="submit" class="btn btn-primary">Agendar</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Lista de tarefas -->
+      <h2>Mensagens Agendadas</h2>
+      <div id="taskList"></div>
     </div>
   </div>
 
@@ -72,239 +83,304 @@
     const taskView = document.getElementById('taskView');
     const qrCodeImg = document.getElementById('qrCode');
     const connectionStatus = document.getElementById('connectionStatus');
-    
+    const dateTimeDisplay = document.getElementById('dateTimeDisplay');
+    const selectedDateTime = document.getElementById('selectedDateTime');
+    const scheduledTimeInput = document.getElementById('scheduled_time');
     let isConnected = false;
 
+    const fp = flatpickr(dateTimeDisplay, {
+      enableTime: true,
+      dateFormat: "d/M/Y H:i",
+      minDate: "today",
+      time_24hr: true,
+      locale: "pt",
+      defaultHour: 8,
+      defaultMinute: 0,
+      allowInput: false,
+      position: "auto",
+      disableMobile: true,
+      onChange: function(selectedDates, dateStr) {
+        if (selectedDates.length > 0) {
+          const date = selectedDates[0];
+          selectedDate = date;
+          scheduledTimeInput.value = Math.floor(date.getTime() / 1000);
+          selectedDateTime.textContent = formatSelectedDate(date);
+          
+          // Mostrar grade de horários após selecionar uma data
+          timeGridContainer.style.display = 'block';
+          
+          // Limpa seleção dos botões de atalho e horários
+          clearButtonSelections();
+        }
+      },
+    });
+
+    document.querySelectorAll('.time-grid-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        if (!selectedDate) {
+          alert('Por favor, selecione uma data primeiro');
+          return;
+        }
+        
+        const hour = parseInt(this.getAttribute('data-hour'));
+        const minute = parseInt(this.getAttribute('data-minute'));
+        
+        selectedDate.setHours(hour, minute, 0, 0);
+        
+        // Atualiza o flatpickr
+        fp.setDate(selectedDate);
+        
+        // Atualiza o input hidden
+        scheduledTimeInput.value = Math.floor(selectedDate.getTime() / 1000);
+        
+        // Atualiza a exibição
+        const options = { 
+          day: '2-digit', 
+          month: '3-digit', 
+          year: 'numeric', 
+          hour: '2-digit', 
+          minute: '2-digit',
+          hour12: false 
+        };
+        selectedDateTime.textContent = formatSelectedDate(selectedDate);
+        
+        // Marca este botão como ativo e desmarca os outros
+        document.querySelectorAll('.time-grid-btn').forEach(b => {
+          b.classList.remove('active');
+        });
+        this.classList.add('active');
+      });
+    });
+
+    function formatSelectedDate(date) {
+        const options = { 
+            day: '2-digit', 
+            month: 'short',  // Usando 'short' que é válido (ex: Abr)
+            year: 'numeric', 
+            hour: '2-digit', 
+            minute: '2-digit',
+            hour12: false 
+        };
+        return date.toLocaleDateString('pt-BR', options).replace(',', ' às');
+        }
+
     const phoneMaskOptions = {
-    mask: '+55 (00) 0 0000-0000',
-    lazy: false, // exibe a máscara completa mesmo sem digitar
-    placeholderChar: '_' // deixa mais visual para o usuário
+      mask: '+55 (00) 0 0000-0000',
+      lazy: false,
+      placeholderChar: '_'
     };
 
     const phoneMask = IMask(document.getElementById('contact'), phoneMaskOptions);
 
-
     async function getQRCode(message) {
-        try {
-            if (message?.data?.qrCode) {
-                isConnected = message.data.connected;
-                
-
-                qrCodeImg.src = message.data.qrCode;
-                qrCodeView.classList.remove('hidden');
-                taskView.classList.add('hidden');
-
-                console.log("QR Code recebido");
-            }
-
-        } catch (error) {
-            console.error('Erro ao obter QR Code:', error);
+      try {
+        if (message?.data?.qrCode) {
+          isConnected = message.data.connected;
+          qrCodeImg.src = message.data.qrCode;
+          qrCodeView.classList.remove('hidden');
+          taskView.classList.add('hidden');
+          console.log("QR Code recebido");
         }
+      } catch (error) {
+        console.error('Erro ao obter QR Code:', error);
+      }
     }
 
     async function connect(message) {
-        try {
-            if (message?.data?.connected) {
-                isConnected = message.data.connected;
-                connectionStatus.textContent = "Conectado ao WhatsApp";
-                connectionStatus.style.color = "green";
-
-                qrCodeView.classList.add('hidden');
-                taskView.classList.remove('hidden');
-
-                console.log("Conectado ao WhatsApp");
-                loadTasks();
-            }
+      try {
+        if (message?.data?.connected) {
+          isConnected = message.data.connected;
+          connectionStatus.textContent = "Conectado ao WhatsApp";
+          connectionStatus.style.color = "green";
+          qrCodeView.classList.add('hidden');
+          taskView.classList.remove('hidden');
+          console.log("Conectado ao WhatsApp");
+          loadTasks();
         }
-        catch (error) {
-            console.error('Erro ao conectar:', error);
-        }
-       
+      } catch (error) {
+        console.error('Erro ao conectar:', error);
+      }
     }
 
     async function checkInitialStatus() {
-        try {
-            await fetch('/whatsapp-status');
-        } catch (error) {
-            console.error('Erro ao verificar status inicial:', error);
-            connectionStatus.textContent = "Erro ao conectar";
-            connectionStatus.style.color = "red";
-        }
+      try {
+        await fetch('/whatsapp-status');
+      } catch (error) {
+        console.error('Erro ao verificar status inicial:', error);
+        connectionStatus.textContent = "Erro ao conectar";
+        connectionStatus.style.color = "red";
+      }
     }
 
     function setScheduleTime(days, event) {
-        if (!event) return;
-        
-        const date = new Date();
-        date.setDate(date.getDate() + days);
-        // Set default time to 08:00
-        date.setHours(8, 0, 0, 0);
-        
-        // Format date for datetime-local input
-        const formattedDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000))
-            .toISOString()
-            .slice(0, 16);
-        
-        const dateInput = document.getElementById('scheduled_time');
-        dateInput.value = formattedDate;
-        dateInput.style.display = 'block'; // Always show time input
-        
-        const options = { 
-            weekday: 'long', 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
+      if (!event) return;
+
+      const date = new Date();
+      date.setDate(date.getDate() + days);
+      date.setHours(8, 0, 0, 0);
+      selectedDate = date;
+      
+      // Atualiza o flatpickr
+      fp.setDate(date);
+      
+      // Atualiza o valor do input hidden
+      scheduledTimeInput.value = Math.floor(date.getTime() / 1000);
+      
+      // Atualiza a exibição
+      const options = { 
+          day: '2-digit', 
+          month: 'short', 
+          year: 'numeric', 
+          hour: '2-digit', 
+          minute: '2-digit',
+          hour12: false 
         };
-        const readableDate = date.toLocaleDateString('pt-BR', options);
-        
-        // Update buttons visual state
-        document.querySelectorAll('.btn-outline-primary, .btn-outline-secondary').forEach(btn => {
-            btn.classList.remove('active');
-        });
-        event.target.classList.add('active');
+        selectedDateTime.textContent = formatSelectedDate(date);
+      
+      // Limpa seleções anteriores e marca este botão
+      clearButtonSelections();
+      event.target.classList.add('active');
+      
+      // Marca o horário correspondente na grade, se existir
+      document.querySelectorAll('.time-grid-btn').forEach(btn => {
+        const btnHour = parseInt(btn.getAttribute('data-hour'));
+        const btnMinute = parseInt(btn.getAttribute('data-minute'));
+        if (btnHour === 8 && btnMinute === 0) {
+          btn.classList.add('active');
+        }
+      });
     }
 
     function toggleCustomDate(event) {
-        if (!event) return;
-        
-        const dateInput = document.getElementById('scheduled_time');
-        const customButton = event.target;
-        
-        if (dateInput.style.display === 'none') {
-            dateInput.style.display = 'block';
-            
-            // Set current date/time when showing input
-            const now = new Date();
-            // Set default time to next hour
-            now.setHours(now.getHours() + 1, 0, 0, 0);
-            
-            const formattedDate = new Date(now.getTime() - (now.getTimezoneOffset() * 60000))
-                .toISOString()
-                .slice(0, 16);
-            dateInput.value = formattedDate;
-        } else {
-            dateInput.style.display = 'none';
-        }
-        
-        // Reset active state of all buttons and set this one as active
-        document.querySelectorAll('.btn-outline-primary, .btn-outline-secondary').forEach(btn => {
-            btn.classList.remove('active');
-        });
-        customButton.classList.add('active');
+      if (!event) return;
+
+      const dateInput = document.getElementById('scheduled_time');
+      const customButton = event.target;
+
+      if (dateInput.style.display === 'none') {
+        dateInput.style.display = 'block';
+
+        const now = new Date();
+        now.setHours(now.getHours() + 1, 0, 0, 0);
+
+        const formattedDate = new Date(now.getTime() - (now.getTimezoneOffset() * 60000))
+          .toISOString()
+          .slice(0, 16);
+        dateInput.value = formattedDate;
+      } else {
+        dateInput.style.display = 'none';
+      }
+
+      document.querySelectorAll('.btn-outline-primary, .btn-outline-secondary').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      customButton.classList.add('active');
     }
 
-    // Função para carregar tarefas
     async function loadTasks() {
-        try {
-            const response = await fetch('/zapAgenda/');
-            const tasks = await response.json();
-            const taskList = document.getElementById('taskList');
-            taskList.innerHTML = '';
+      try {
+        const response = await fetch('/zapAgenda/');
+        const tasks = await response.json();
+        const taskList = document.getElementById('taskList');
+        taskList.innerHTML = '';
 
-            if (tasks.length === 0) {
-                taskList.innerHTML = '<div class="alert alert-info">Nenhuma mensagem agendada.</div>';
-                return;
-            }
-
-            tasks.forEach(task => {
-                const date = new Date(task.scheduled_time * 1000);
-                // Format phone number
-                const phone = task.contact.replace(/^(\d{2})(\d)(\d{4})(\d{4})$/, "($1) $2 $3-$4");
-                const card = `
-                    <div class="card task-card">
-                        <div class="card-body">
-                            <h5 class="card-title">Para: ${phone}</h5>
-                            <p class="card-text">${task.message}</p>
-                            <p class="card-text"><small class="text-muted">Agendado para: ${date.toLocaleString()}</small></p>
-                            <button onclick="deleteTask(${task.id})" class="btn btn-danger btn-sm">Excluir</button>
-                        </div>
-                    </div>
-                `;
-                taskList.innerHTML += card;
-            });
-        } catch (error) {
-            console.error('Erro ao carregar tarefas:', error);
+        if (tasks.length === 0) {
+          taskList.innerHTML = '<div class="alert alert-info">Nenhuma mensagem agendada.</div>';
+          return;
         }
+
+        tasks.forEach(task => {
+          const date = new Date(task.scheduled_time * 1000);
+          const phone = task.contact.replace(/^(\d{2})(\d)(\d{4})(\d{4})$/, "($1) $2 $3-$4");
+          const card = `
+            <div class="card task-card">
+              <div class="card-body">
+                <h5 class="card-title">Para: ${phone}</h5>
+                <p class="card-text">${task.message}</p>
+                <p class="card-text"><small class="text-muted">Agendado para: ${date.toLocaleString()}</small></p>
+                <button onclick="deleteTask(${task.id})" class="btn btn-danger btn-sm">Excluir</button>
+              </div>
+            </div>
+          `;
+          taskList.innerHTML += card;
+        });
+      } catch (error) {
+        console.error('Erro ao carregar tarefas:', error);
+      }
     }
 
-    // Função para criar nova tarefa
     document.getElementById('taskForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        try {
-            const scheduledDate = new Date(document.getElementById('scheduled_time').value);
-            const task = {
-                id: 0,
-                contact: phoneMask.value.replace(/(\+55\s\(\d{2}\)\s)(\d)\s/, '$1'), // remover nono digito
-                message: document.getElementById('message').value,
-                scheduled_time: Math.floor(scheduledDate.getTime() / 1000)
-            };
+      e.preventDefault();
+      try {
+        const scheduledDate = new Date(document.getElementById('scheduled_time').value);
+        const task = {
+          id: 0,
+          contact: phoneMask.value.replace(/(\+55\s\(\d{2}\)\s)(\d)\s/, '$1'),
+          message: document.getElementById('message').value,
+          scheduled_time: Math.floor(scheduledDate.getTime() / 1000)
+        };
 
-            const response = await fetch('/zapAgenda/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(task)
-            });
+        const response = await fetch('/zapAgenda/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(task)
+        });
 
-            if (response.ok) {
-                document.getElementById('taskForm').reset();
-                loadTasks();
-            } else {
-                alert('Erro ao agendar mensagem.');
-            }
-        } catch (error) {
-            console.error('Erro ao criar tarefa:', error);
-            alert('Erro ao agendar mensagem. Verifique o console para mais detalhes.');
+        if (response.ok) {
+          document.getElementById('taskForm').reset();
+          loadTasks();
+        } else {
+          alert('Erro ao agendar mensagem.');
         }
+      } catch (error) {
+        console.error('Erro ao criar tarefa:', error);
+        alert('Erro ao agendar mensagem. Verifique o console para mais detalhes.');
+      }
     });
 
-    // Função para deletar tarefa
     async function deleteTask(id) {
-        try {
-            const response = await fetch(`/zapAgenda/${id}`, {
-                method: 'DELETE'
-            });
-            
-            if (response.ok) {
-                loadTasks();
-            } else {
-                alert('Erro ao excluir mensagem.');
-            }
-        } catch (error) {
-            console.error('Erro ao deletar tarefa:', error);
-            alert('Erro ao excluir mensagem.');
+      try {
+        const response = await fetch(`/zapAgenda/${id}`, {
+          method: 'DELETE'
+        });
+
+        if (response.ok) {
+          loadTasks();
+        } else {
+          alert('Erro ao excluir mensagem.');
         }
+      } catch (error) {
+        console.error('Erro ao deletar tarefa:', error);
+        alert('Erro ao excluir mensagem.');
+      }
     }
 
-    window.onload = function() {
-        const ws = new WebSocket("ws://localhost:8000/ws");
+    window.onload = function () {
+      const ws = new WebSocket("ws://localhost:8000/ws");
 
-        ws.onmessage = function(event) {
-            const message = JSON.parse(event.data);
-            console.log("Mensagem recebida via WebSocket:", message);
-            connectionStatus.textContent = "Aguardando escaneamento do QR Code";
-            connectionStatus.style.color = "orange";
+      ws.onmessage = function (event) {
+        const message = JSON.parse(event.data);
+        console.log("Mensagem recebida via WebSocket:", message);
+        connectionStatus.textContent = "Aguardando escaneamento do QR Code";
+        connectionStatus.style.color = "orange";
 
-            if (message.event === "qr_updated") {
-                getQRCode(message);
-            }
-            else if (message.event === "connection_status"){
-                connect(message);
-            }
-        };
+        if (message.event === "qr_updated") {
+          getQRCode(message);
+        } else if (message.event === "connection_status") {
+          connect(message);
+        }
+      };
 
-        ws.onopen = function() {
-            console.log("Conectado ao WebSocket");
-            checkInitialStatus();
-        };
+      ws.onopen = function () {
+        console.log("Conectado ao WebSocket");
+        checkInitialStatus();
+      };
 
-        ws.onclose = function() {
-            console.log("WebSocket desconectado");
-        };
+      ws.onclose = function () {
+        console.log("WebSocket desconectado");
+      };
     };
   </script>
 

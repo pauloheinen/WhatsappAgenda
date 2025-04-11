@@ -98,12 +98,12 @@
   .dark-mode .form-control::placeholder {
     color: #adb5bd;
     opacity: 1;
-    }
+  }
 
 
-    .form-control::placeholder {
-        opacity: 0.8;
-    }
+  .form-control::placeholder {
+    opacity: 0.8;
+  }
   
   /* Connection Status */
   .connection-status {
