@@ -1,9 +1,47 @@
-venv/
+# VS Code
+.vscode/
+*.code-workspace
+.history/
+
+# Python
 __pycache__/
-*.pyc
-.env
+*.py[cod]
+*$py.class
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+
+# Application Specific
 browser_data/
+*.log
+.env
+
+# Build files
 dist/
 build/
 *.spec
+
+# Testing
 .pytest_cache/
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
