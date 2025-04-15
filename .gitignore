@@ -1,3 +1,9 @@
-.vscode/*
-browser_data/
+venv/
 __pycache__/
+*.pyc
+.env
+browser_data/
+dist/
+build/
+*.spec
+.pytest_cache/
