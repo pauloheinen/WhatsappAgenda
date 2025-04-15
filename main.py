@@ -48,6 +48,9 @@ user_agents = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.3.1 Safari/605.1.15",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 Edg/121.0.0.0"
 ]
 
 # Modelos de dados
@@ -128,13 +131,26 @@ async def initialize_browser():
                     "--disable-blink-features=AutomationControlled",
                     "--disable-web-security",
                     "--disable-features=IsolateOrigins,site-per-process",
-                    "--disable-site-isolation-trials"
+                    "--disable-site-isolation-trials",
+                    "--no-sandbox",
+                    "--disable-setuid-sandbox",
+                    "--disable-dev-shm-usage",
+                    "--disable-accelerated-2d-canvas",
+                    "--no-first-run",
+                    "--no-zygote",
+                    "--disable-gpu",
+                    "--hide-scrollbars",
+                    "--mute-audio"
                 ],
-                viewport={"width": 1280, "height": 800},
+                viewport={"width": random.randint(1050, 1280), "height": random.randint(800, 920)},
                 user_agent=user_agent,
                 chromium_sandbox=False,
                 bypass_csp=True,
-                ignore_default_args=["--enable-automation"]
+                ignore_default_args=["--enable-automation"],
+                locale=random.choice(["pt-BR", "pt-PT", "en-US"]),
+                timezone_id=random.choice(["America/Sao_Paulo", "America/Recife", "America/Fortaleza"]),
+                geolocation={"latitude": -23.5505, "longitude": -46.6333, "accuracy": 100},  # Coordenadas para São Paulo
+                permissions=["geolocation"]
             )
 
             page = await browser.new_page()
