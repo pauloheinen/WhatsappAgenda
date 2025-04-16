@@ -50,8 +50,10 @@ http://localhost:8000
 ```
 
 3. Scan the WhatsApp QR code with your phone
+![aguardando scan qrcode](https://github.com/user-attachments/assets/aae0b02e-b6a3-42ef-903c-eb141185f139)
 
-4. Start scheduling messages!
+5. Start scheduling messages!
+![screenshot1](https://github.com/user-attachments/assets/1b2ccf70-fc15-4cd3-a1ed-9832b22fa8b1)
 
 ## ⚙️ Development Setup
 
